@@ -1,9 +1,7 @@
-package services;
+package service;
 
 import dao.UserDao;
-import dao.UserDaoJDBCImpl;
 import user.User;
-import util.DBHelper;
 
 import java.sql.SQLException;
 import java.util.List;
