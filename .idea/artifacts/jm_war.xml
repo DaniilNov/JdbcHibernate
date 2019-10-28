@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="jm:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="jm-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="jm:war exploded" />
+    </root>
+  </artifact>
+</component>
