@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet("/allusers")
 public class getAllUserServlet extends HttpServlet {
 
+
     UserService userService = UserServiceImpl.getInstance();
 
 
