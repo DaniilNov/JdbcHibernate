@@ -11,7 +11,7 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
 
 
-  DBHelper dbHelper = DBHelper.getInstance();
+    DBHelper dbHelper = DBHelper.getInstance();
     //language=SQL
     private final String SQL_GET_ALL_USERS = "SELECT * FROM users";
     //language=SQL
@@ -27,26 +27,22 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     public List<User> getAllUsers() {
-       try {
-           List<User> users = new ArrayList<>();
-           PreparedStatement stmt = dbHelper.getConnection().prepareStatement(SQL_GET_ALL_USERS);
-           ResultSet result = stmt.getResultSet();
-           while (result.next()) {
-               long id = result.getLong(1);
-               String names = result.getString(2);
-               String password = result.getString(3);
-               User user = new User(id, names, password);
-               users.add(user);
-               System.out.println(user.toString());
-           }
-           stmt.close();
-           result.close();
-           return users;
-       }
-       catch (ClassNotFoundException|SQLException e){
-           return null;
-       }
+        List<User> users = new ArrayList<>();
+        try {
 
+            PreparedStatement stmt = dbHelper.getConnection().prepareStatement(SQL_GET_ALL_USERS);
+            ResultSet result = stmt.getResultSet();
+            while (result.next()) {
+                long id = result.getLong(1);
+                String name = result.getString(2);
+                String password = result.getString(3);
+                User user = new User(id, name, password);
+                users.add(user);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.getStackTrace();
+        }
+        return users;
     }
 
     public void addUser(User user) {
@@ -59,7 +55,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 statement.executeUpdate();
                 statement.close();
             }
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -71,7 +67,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setLong(1, id);
             statement.executeUpdate();
             statement.close();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -79,11 +75,11 @@ public class UserDaoJDBCImpl implements UserDao {
     public void editUser(User user) {
         try {
             PreparedStatement statement = dbHelper.getConnection().prepareStatement(SQL_EDIT_USER);
-            statement.setString(1,user.getName());
-            statement.setString(2,user.getPassword());
-            statement.setLong(3,user.getId());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getPassword());
+            statement.setLong(3, user.getId());
             statement.close();
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -101,7 +97,7 @@ public class UserDaoJDBCImpl implements UserDao {
             User user = new User(id2, name, password);
             return user;
 
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
 
@@ -120,7 +116,7 @@ public class UserDaoJDBCImpl implements UserDao {
             User user = new User(id, names, password);
             return user;
 
-        } catch (SQLException|ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
 

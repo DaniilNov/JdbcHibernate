@@ -1,17 +1,15 @@
 package service;
 
-import dao.UserDao;
+import dao.UserDaoJDBCImpl;
 import user.User;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+    private UserDaoJDBCImpl userDaoJDBCImpl;
     private static UserServiceImpl instance;
 
-    private UserServiceImpl() {
-    }
 
     public static UserServiceImpl getInstance() {
         if (instance == null) {
@@ -22,32 +20,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
-        return userDao.getAllUsers();
+        return userDaoJDBCImpl.getAllUsers();
     }
 
     @Override
     public void addUser(User user) {
-        userDao.addUser(user);
+        userDaoJDBCImpl.addUser(user);
     }
 
     @Override
     public void deleteUser(long id) {
-        userDao.deleteUser(id);
+        userDaoJDBCImpl.deleteUser(id);
 
     }
 
     @Override
     public void editUser(User user) {
-        userDao.editUser(user);
+        userDaoJDBCImpl.editUser(user);
     }
 
     @Override
     public User getUserById(long id) {
-        return userDao.getUserById(id);
+        return userDaoJDBCImpl.getUserById(id);
     }
 
     @Override
     public User getUserByName(String name) throws SQLException {
-        return userDao.getUserByName(name);
+        return userDaoJDBCImpl.getUserByName(name);
     }
 }
