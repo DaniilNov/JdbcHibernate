@@ -28,20 +28,22 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
+
         try {
 
             PreparedStatement stmt = dbHelper.getConnection().prepareStatement(SQL_GET_ALL_USERS);
-            ResultSet result = stmt.getResultSet();
-            while (result.next()) {
-                long id = result.getLong(1);
-                String name = result.getString(2);
-                String password = result.getString(3);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String password = resultSet.getString(3);
                 User user = new User(id, name, password);
                 users.add(user);
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.getStackTrace();
         }
+
         return users;
     }
 
@@ -58,6 +60,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
 
     }
 

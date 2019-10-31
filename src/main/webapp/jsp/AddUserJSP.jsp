@@ -4,7 +4,7 @@
     <title>AddUserJSP</title>
 </head>
 <body>
-<form action="/adduser" method="POST">
+<form action="/addUser" method="POST">
     <ul>
         <li>
             <label>Username: <input type="text" name="name"></label>

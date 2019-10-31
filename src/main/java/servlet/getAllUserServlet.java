@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/allusers")
+@WebServlet("/allUsers")
 public class getAllUserServlet extends HttpServlet {
 
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/adduser")
+@WebServlet("/addUser")
 
 public class addUserServlet extends HttpServlet {
 
@@ -32,11 +32,14 @@ public class addUserServlet extends HttpServlet {
         if(name.isEmpty()||password.isEmpty()){
             RequestDispatcher dispatcher = req.getRequestDispatcher("jsp/AddUserJSP.jsp");
             dispatcher.forward(req,resp);
+            return;
         }
         User user = new User(name,password);
         userService.addUser(user);
         HttpSession session = req.getSession();
         session.setAttribute("user",user);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("html/ThankYou.html");
+        dispatcher.forward(req,resp);
 
     }
 }
