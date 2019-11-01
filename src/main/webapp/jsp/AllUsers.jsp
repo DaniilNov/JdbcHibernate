@@ -21,7 +21,10 @@
                 <td>${user.name}</td>
                 <td>${user.password}</td>
 
-
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/editUser?id=${user.id}">Edit</a>
+                </td>
             </tr>
         </c:forEach>
     </table>

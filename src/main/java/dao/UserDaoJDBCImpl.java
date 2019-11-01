@@ -4,12 +4,12 @@ import user.User;
 import util.DBHelper;
 
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-
 
     DBHelper dbHelper = DBHelper.getInstance();
     //language=SQL
@@ -81,6 +81,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setString(1, user.getName());
             statement.setString(2, user.getPassword());
             statement.setLong(3, user.getId());
+            statement.executeUpdate();
             statement.close();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
