@@ -1,6 +1,13 @@
 package user;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String password;
@@ -14,6 +21,9 @@ public class User {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public User() {
     }
 
     public long getId() {

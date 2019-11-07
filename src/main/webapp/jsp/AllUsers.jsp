@@ -22,8 +22,9 @@
                 <td>${user.password}</td>
 
                 <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/editUser?id=${user.id}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/deleteUser?id=${user.id}">Delete</a>
                 </td>
             </tr>
         </c:forEach>
