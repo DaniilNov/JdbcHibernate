@@ -5,9 +5,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import user.User;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +16,7 @@ public class DBHelper {
     private static final String URL = "jdbc:mysql://localhost:3306/jm_schema";
     private static final String PASSWORD = "root";
     private static final String LOGIN = "root";
-    private Connection connection;
+    private static Connection connection;
     private static SessionFactory sessionFactory;
 
 
@@ -39,7 +37,7 @@ public class DBHelper {
         return sessionFactory;
     }
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
+    public static Connection getConnection() throws ClassNotFoundException, SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -54,14 +52,29 @@ public class DBHelper {
     public static Configuration getConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
-        configuration.setProperty("hibernate.dialect", "dialect");
-        configuration.setProperty("hibernate.connection.driver_class", "driver.class");
-        configuration.setProperty("hibernate.connection.url", "connection.url");
-        configuration.setProperty("hibernate.connection.username", "username");
-        configuration.setProperty("hibernate.connection.password", "password");
-        configuration.setProperty("hibernate.show_sql", "show_sql");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "hbm2ddl.auto");
+        configuration.setProperty("hibernate.dialect",getProperties( "dialect"));
+        configuration.setProperty("hibernate.connection.driver_class",getProperties( "driver.class"));
+        configuration.setProperty("hibernate.connection.url", getProperties("connection.url"));
+        configuration.setProperty("hibernate.connection.username", getProperties("username"));
+        configuration.setProperty("hibernate.connection.password", getProperties("password"));
+        configuration.setProperty("hibernate.show_sql",getProperties( "show_sql"));
+        configuration.setProperty("hibernate.hbm2ddl.auto", getProperties("hbm2ddl.auto"));
         return configuration;
+    }
+
+    private static String getProperties(String name) {
+        String value = null;
+        Properties properties = new Properties();
+        DBHelper dbHelper = new DBHelper();
+        try {
+            InputStream is = dbHelper.getClass().getClassLoader().getResourceAsStream("hibernate.properties");
+            properties.load(is);
+            value = properties.getProperty(name);
+            is.close();
+        } catch (IOException e) {
+            System.err.println("Проблема в проперти");
+        }
+        return value;
     }
 
     private static SessionFactory createSessionFactory() {
