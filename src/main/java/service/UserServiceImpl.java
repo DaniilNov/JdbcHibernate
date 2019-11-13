@@ -1,6 +1,7 @@
 package service;
 
 import dao.UserDao;
+import dao.UserDaoFactory;
 import dao.UserDaoHibernateImpl;
 import dao.UserDaoJDBCImpl;
 import user.User;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    private UserDao userDao = new UserDaoJDBCImpl();
+    private UserDao userDao = new UserDaoFactory().getUserDao();
     private static UserServiceImpl instance;
 
 
